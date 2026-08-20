@@ -1,0 +1,34 @@
+services:
+  web:
+    build: .
+    container_name: apache_php
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_NAME: ma_bd
+      DB_USER: mon_user
+      DB_PASSWORD: mon_password
+
+  db:
+    image: mariadb:12
+    container_name: mariadb
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: root_password
+      MARIADB_DATABASE: ma_bd
+      MARIADB_USER: mon_user
+      MARIADB_PASSWORD: mon_password
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:
