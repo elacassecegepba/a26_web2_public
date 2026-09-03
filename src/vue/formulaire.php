@@ -14,24 +14,33 @@ ob_start();
 
 <h1 class="text-center">Formulaire</h1>
 
-<form method="post" action="index.php?action=inscrireAUnCours">
+<form method="post" action="index.php?action=inscrireAUnCours" class="needs-validation" novalidate>
     <div class="mb-3 mt-3">
         <label for="nom" class="form-label">Nom:</label>
-        <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom" name="nom">
+        <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom" name="nom" required minlength="3" maxlength="50">
+        <div class="invalid-feedback">
+            Le nom est requis et doit contenir entre 3 et 50 caractères.
+        </div>
     </div>
     <div class="mb-3 mt-3">
         <label for="email" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="email" placeholder="Entrez votre email" name="email">
+        <input type="email" class="form-control" id="email" placeholder="Entrez votre email" name="email" required maxlength="255">
+        <div class="invalid-feedback">
+            L'email est requis, doit être valide et contenir au maximum 255 caractères.
+        </div>
     </div>
     <div class="mb-3 mt-3">
         <label for="cours" class="form-label">Choix du cours:</label>
-        <select class="form-select" id="cours" name="cours">
+        <select class="form-select" id="cours" name="cours" required>
             <option selected value="" disabled>Sélectionnez un cours</option>
             <option value="algo">Algorithmique</option>
             <option value="web">Développement Web</option>
             <option value="reseau">Réseaux</option>
             <option value="bdd">Bases de données</option>
         </select>
+        <div class="invalid-feedback">
+            Le choix du cours est requis.
+        </div>
     </div>
     <button type="submit" class="btn btn-primary">Envoyer</button>
 </form>
