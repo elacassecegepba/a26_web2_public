@@ -14,11 +14,28 @@ function afficherPageFormulaire()
     require 'vue/formulaire.php';
 }
 
+function validerDonneesInscrireAUnCours()
+{
+    $choixDeCours = ['algo', 'web', 'reseau', 'bdd'];
+    $erreurs = [];
+    if (empty($_POST['nom']) || mb_strlen($_POST['nom']) < 3 || mb_strlen($_POST['nom']) > 50) {
+        $erreurs[] = 'Le nom est requis et doit contenir entre 3 et 50 caractères.';
+    }
+    if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || mb_strlen($_POST['email']) > 255) {
+        $erreurs[] = 'L\'email est requis, doit être valide et contenir au maximum 255 caractères.';
+    }
+    if (empty($_POST['cours']) || !in_array($_POST['cours'], $choixDeCours)) {
+        $erreurs[] = 'Le choix du cours est requis et doit être valide.';
+    }
+    return $erreurs;
+}
+
 function inscrireAUnCours()
 {
-    // Vérifie que les données du formulaire sont présentes
-    if (!isset($_POST['nom'], $_POST['email'], $_POST['cours'])) {
-        // Si les données du formulaire ne sont pas présentes, on redirige vers le formulaire
+    // Vérifie que les données du formulaire sont valides
+    $erreurs = validerDonneesInscrireAUnCours();
+    if (!empty($erreurs)) {
+        // Si les données ne sont pas valides, on redirige vers le formulaire
         header('Location: index.php?action=afficherPageFormulaire');
         exit;
     }
