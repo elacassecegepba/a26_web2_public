@@ -27,10 +27,11 @@ try {
             // Appel de la fonction du contrôleur pour afficher la page de formulaire
             afficherPageFormulaire();
             break;
-        case 'inscrireAUnCours':
-            // Ex. d'URL : index.php?action=inscrireAUnCours
-            // Appel de la fonction du contrôleur pour inscrire un utilisateur à un cours
-            inscrireAUnCours();
+        case 'inscrireAUnCoursPartie1':
+            inscrireAUnCoursPartie1();
+            break;
+        case 'inscrireAUnCoursPartie2':
+            inscrireAUnCoursPartie2();
             break;
         default:
             // Si l'action demandée n'est pas reconnue, on lance une exception

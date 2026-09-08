@@ -23,6 +23,15 @@ ob_start();
 
 <p class="text-center">Merci, <strong><?php echo htmlspecialchars($_POST['nom']); ?></strong>, vous êtes inscrit au cours <strong><?php echo $cours['nom']; ?></strong>.</p>
 <p class="text-center">Un email de confirmation a été envoyé à l'adresse <strong><?php echo htmlspecialchars($_POST['email']); ?></strong>.</p>
+<p class="text-center">Paiement effectué avec la carte :</p>
+<div class="card">
+    <div class="card-body">
+        <p class="card-text">Numéro de carte : <strong><?php echo htmlspecialchars($_POST['numeroCarte']); ?></strong></p>
+        <p class="card-text">Nom du titulaire : <strong><?php echo htmlspecialchars($_POST['nomTitulaire']); ?></strong></p>
+        <p class="card-text">Date d'expiration : <strong><?php echo htmlspecialchars($_POST['moisExpiration']); ?>/<?php echo htmlspecialchars($_POST['anneeExpiration']); ?></strong></p>
+        <p class="card-text">CVV : <strong><?php echo htmlspecialchars($_POST['cvv']); ?></strong></p>
+    </div>
+</div>
 
 <?php
 // Récupération de tout le contenu généré depuis le début de la mise en tampon.

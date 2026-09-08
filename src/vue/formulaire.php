@@ -14,7 +14,7 @@ ob_start();
 
 <h1 class="text-center">Formulaire</h1>
 
-<form method="post" action="index.php?action=inscrireAUnCours" class="needs-validation" novalidate>
+<form method="post" action="index.php?action=inscrireAUnCoursPartie1" class="needs-validation" novalidate>
     <div class="mb-3 mt-3">
         <label for="nom" class="form-label">Nom:</label>
         <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom" name="nom" required minlength="3" maxlength="50">
