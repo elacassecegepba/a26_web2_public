@@ -14,7 +14,8 @@
                 <!-- Bouton vers la page d'accueil -->
                 <li class="nav-item">
                     <a
-                        class="nav-link <?php NavClass("afficherPageAccueil"); NavClassDefault(); ?>"
+                        class="nav-link <?php NavClass("afficherPageAccueil");
+                                        NavClassDefault(); ?>"
                         href="index.php?action=afficherPageAccueil">
                         Accueil
                     </a>
@@ -22,30 +23,35 @@
             </ul>
             <!-- Boutons de navigation à droite -->
             <ul class="navbar-nav">
-                <!-- Bouton vers la page de connexion -->
-                <li class="nav-item">
-                    <a
-                        class="nav-link <?php NavClass("afficherPageConnexion"); ?>"
-                        href="index.php?action=afficherPageConnexion">
-                        Connexion
-                    </a>
-                </li>
-                <!-- Bouton vers la page de profil -->
-                <li class="nav-item">
-                    <a
-                        class="nav-link <?php NavClass("afficherPageProfil"); ?>"
-                        href="index.php?action=afficherPageProfil">
-                        Profil
-                    </a>
-                </li>
-                <!-- Bouton vers la page de déconnexion -->
-                <li class="nav-item">
-                    <a
-                        class="nav-link <?php NavClass("deconnecter"); ?>"
-                        href="index.php?action=deconnecter">
-                        Déconnexion
-                    </a>
-                </li>
+                <?php if (!estConnecte()) { ?>
+                    <!-- Bouton vers la page de connexion -->
+                    <li class="nav-item">
+                        <a
+                            class="nav-link <?php NavClass("afficherPageConnexion"); ?>"
+                            href="index.php?action=afficherPageConnexion">
+                            Connexion
+                        </a>
+                    </li>
+                <?php } ?>
+
+                <?php if (estConnecte()) { ?>
+                    <!-- Bouton vers la page de profil -->
+                    <li class="nav-item">
+                        <a
+                            class="nav-link <?php NavClass("afficherPageProfil"); ?>"
+                            href="index.php?action=afficherPageProfil">
+                            Profil
+                        </a>
+                    </li>
+                    <!-- Bouton vers la page de déconnexion -->
+                    <li class="nav-item">
+                        <a
+                            class="nav-link <?php NavClass("deconnecter"); ?>"
+                            href="index.php?action=deconnecter">
+                            Déconnexion
+                        </a>
+                    </li>
+                <?php } ?>
             </ul>
         </div>
     </div>
@@ -67,5 +73,11 @@ function NavClassDefault()
     if (!isset($_GET['action'])) {
         echo ' active ';
     }
+}
+
+// Vérifie si l'utilisateur est connecté en vérifiant la présence de la variable de session
+function estConnecte()
+{
+    return isset($_SESSION['utilisateur']);
 }
 ?>

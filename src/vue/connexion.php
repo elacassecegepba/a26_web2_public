@@ -5,6 +5,18 @@
 <h1 class="text-center">Connexion</h1>
 
 <div class="col-sm-10 col-md-8 col-lg-6 mx-auto">
+    <?php
+    if (isset($_SESSION['erreurs'])) {
+        // Récupère les erreurs et les formate pour l'affichage
+        $erreurs = implode("<br>", $_SESSION['erreurs']);
+        // htmlspecialchars n'est pas nécessaire ici car les erreurs sont générées en interne
+        // Affiche les erreurs dans une alerte Bootstrap
+        echo '<div class="alert alert-danger" role="alert">' . $erreurs . '</div>';
+        // Supprime les erreurs de la session après les avoir affichées
+        unset($_SESSION['erreurs']);
+    }
+    ?>
+
     <form method="post" action="index.php?action=connecter" class="needs-validation" novalidate>
         <div class="mb-3 mt-3">
             <label for="nomUtilisateur" class="form-label">Nom d'utilisateur&nbsp;:</label>

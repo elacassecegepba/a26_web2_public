@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once 'controleur/controleur.php';
 
 try {
