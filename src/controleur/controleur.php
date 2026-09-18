@@ -15,6 +15,18 @@ function afficherPageConnexion()
     require 'vue/connexion.php';
 }
 
+function afficherPageInscription()
+{
+    // Vérifier si l'utilisateur est connecté
+    if (isset($_SESSION['utilisateur'])) {
+        // Rediriger vers la page de profil si l'utilisateur est déjà connecté
+        header('Location: index.php?action=afficherPageProfil');
+        exit;
+    }
+
+    require 'vue/inscription.php';
+}
+
 function afficherPageProfil()
 {
     // Vérifier si l'utilisateur est connecté
@@ -26,7 +38,7 @@ function afficherPageProfil()
     require 'vue/profil.php';
 }
 
-function validerDonneesConnexion()
+function validerDonneesAuthentification()
 {
     $erreurs = [];
     if (empty($_POST['nomUtilisateur']) || mb_strlen($_POST['nomUtilisateur']) < 3 || mb_strlen($_POST['nomUtilisateur']) > 45) {
@@ -40,7 +52,7 @@ function validerDonneesConnexion()
 
 function connecter()
 {
-    $erreurs = validerDonneesConnexion();
+    $erreurs = validerDonneesAuthentification();
     if (!empty($erreurs)) {
         // Ajout des erreurs à la session pour les afficher sur la page de connexion
         $_SESSION['erreurs'] = $erreurs;
@@ -67,6 +79,25 @@ function connecter()
     header('Location: index.php?action=afficherPageProfil');
 }
 
+function inscrire()
+{
+    $erreurs = validerDonneesAuthentification();
+    if (!empty($erreurs)) {
+        // Ajout des erreurs à la session pour les afficher sur la page d'inscription
+        $_SESSION['erreurs'] = $erreurs;
+        header('Location: index.php?action=afficherPageInscription');
+        exit;
+    }
+
+    // Ajout de l'utilisateur dans la base de données
+
+    // Après une inscription réussie, connecter automatiquement l'utilisateur
+    connecter();
+
+    // Rediriger vers la page du profil après une inscription réussie
+    header('Location: index.php?action=afficherPageProfil');
+}
+
 function deconnecter()
 {
     // Vider les données de la session
@@ -76,6 +107,15 @@ function deconnecter()
     // Rediriger vers la page d'accueil après la déconnexion
     header('Location: index.php?action=afficherPageAccueil');
     exit;
+}
+
+// Fonction pour valider une URL. Fonctionne avec les URL contenant des caractères spéciaux comme les accents.
+function validerUrl(string $url) {
+    $path = parse_url($url, PHP_URL_PATH);
+    $encoded_path = array_map('urlencode', explode('/', $path));
+    $url = str_replace($path, implode('/', $encoded_path), $url);
+
+    return filter_var($url, FILTER_VALIDATE_URL) ? true : false;
 }
 
 function validerDonneesProfil()
@@ -96,7 +136,7 @@ function validerDonneesProfil()
     if (
         // Valider seulement si le champ n'est pas vide. Le champ est optionnel.
         !empty($_POST['image']) && (
-            !filter_var($_POST['image'], FILTER_VALIDATE_URL)
+            !validerUrl($_POST['image'])
             || mb_strlen($_POST['image']) > 2048
         )
     ) {

@@ -16,11 +16,17 @@ try {
         case 'afficherPageConnexion':
             afficherPageConnexion();
             break;
+        case 'afficherPageInscription':
+            afficherPageInscription();
+            break;
         case 'afficherPageProfil':
             afficherPageProfil();
             break;
         case 'connecter':
             connecter();
+            break;
+        case 'inscrire':
+            inscrire();
             break;
         case 'deconnecter':
             deconnecter();

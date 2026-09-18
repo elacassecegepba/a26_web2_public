@@ -32,6 +32,14 @@
                             Connexion
                         </a>
                     </li>
+                    <!-- Bouton vers la page d'inscription -->
+                    <li class="nav-item">
+                        <a
+                            class="nav-link <?php NavClass("afficherPageInscription"); ?>"
+                            href="index.php?action=afficherPageInscription">
+                            Inscription
+                        </a>
+                    </li>
                 <?php } ?>
 
                 <?php if (estConnecte()) { ?>
