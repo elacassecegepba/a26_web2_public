@@ -2,7 +2,7 @@
 <?php ob_start(); ?>
 
 <?php
-$nomUtilisateur = htmlspecialchars($_SESSION['utilisateur']['nomUtilisateur']);
+$nomUtilisateur = htmlspecialchars($_SESSION['utilisateur']['nom']);
 $email = htmlspecialchars($_SESSION['utilisateur']['email'] ?? '');
 $image = htmlspecialchars($_SESSION['utilisateur']['image'] ?? '');
 ?>
