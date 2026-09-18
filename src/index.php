@@ -25,6 +25,9 @@ try {
         case 'deconnecter':
             deconnecter();
             break;
+        case 'modifierProfil':
+            modifierProfil();
+            break;
         default:
             throw new Exception('404 : Action non supportée');
     }
