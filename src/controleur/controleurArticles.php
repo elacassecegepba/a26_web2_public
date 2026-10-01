@@ -1,8 +1,40 @@
 <?php
+require_once "modele/modeleArticles.php";
+require_once "modele/modeleImagesArticles.php";
 
 function afficherPageArticles()
 {
-    require 'vue/articles.php';
+    if (!isset($_GET['articleId'])) {
+        $filtreTitre = "";
+        if (isset($_POST['filtreTitre'])) {
+            if ($_POST['filtreTitre'] == "") {
+                // Effacer le filtre si l'utilisateur soumet une recherche vide
+                unset($_SESSION['filtreTitre']);
+            } else {
+                // Enregistrement du filtre dans la session
+                $_SESSION['filtreTitre'] = $_POST['filtreTitre'];
+            }
+        }
+        
+        // Récupération du filtre conservé en session (s'il existe)
+        if (isset($_SESSION['filtreTitre'])) {
+            $filtreTitre = $_SESSION['filtreTitre'];
+        }
+        $requeteArticles = ModeleArticles::obtenirArticles($filtreTitre);
+        require 'vue/articles.php';
+        exit;
+    }
+
+    // Récupération de l'article spécifique
+    $article = ModeleArticles::obtenirArticle($_GET['articleId'])->fetch();
+    // Si l'article n'existe pas en base de données, redirection vers la liste
+    if ($article === false) {
+        header('Location: index.php?action=afficherPageArticles');
+        exit;
+    }
+    // Décoder les images JSON en tableau PHP
+    $article['images'] = json_decode($article['images'], true);
+    require 'vue/articleDetails.php';
 }
 
 function afficherPageNouvelArticle()
@@ -40,6 +72,11 @@ function validerDonneesAjouterArticle()
 
 function ajouterArticle()
 {
+    if (!isset($_SESSION['utilisateur'])) {
+        header('Location: index.php?action=afficherPageConnexion');
+        exit;
+    }
+
     $erreurs = validerDonneesAjouterArticle();
     if (!empty($erreurs)) {
         $_SESSION['erreurs'] = $erreurs;
@@ -47,5 +84,41 @@ function ajouterArticle()
         exit;
     }
 
-    header('Location: index.php?action=afficherPageArticles');
+    $connexion = BD::ObtenirConnexion();
+
+    try {
+        // Utilisation d'une transaction pour garantir l'intégrité des données
+        $connexion->beginTransaction();
+
+        // Insertion de l'article principal
+        $articleId = ModeleArticles::ajouterArticle(
+            $_POST['titre'],
+            $_POST['resume'],
+            $_POST['contenu'],
+            $_SESSION['utilisateur']['id']
+        );
+
+        // Insertion des images associées (si présentes)
+        if (isset($_POST['images']) && is_array($_POST['images'])) {
+            foreach ($_POST['images'] as $urlImage) {
+                ModeleImagesArticles::ajouterImageArticle($urlImage, $articleId);
+            }
+        }
+
+        // Validation finale de la transaction
+        $connexion->commit();
+
+        // Redirection en cas de succès
+        header('Location: index.php?action=afficherPageArticles');
+        exit;
+    } catch (Exception $e) {
+        // En cas d'erreur, annulation des changements SQL
+        if ($connexion->inTransaction()) {
+            $connexion->rollBack();
+        }
+
+        $_SESSION['erreurs'] = ["Une erreur est survenue lors de la création de l'article."];
+        header('Location: index.php?action=afficherPageNouvelArticle');
+        exit;
+    }
 }
