@@ -2,7 +2,10 @@
 <?php ob_start(); ?>
 
 <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
-    <form method="post" action="index.php?action=inscrire" class="needs-validation row flex-column g-3" novalidate>
+    <div id="alerteInfo" class="alert alert-info d-none" role="alert">
+        Le contenu de l'alerte sera inséré ici par JavaScript.
+    </div>
+    <form id="formulaireInscription" method="post" action="index.php?action=inscrire" class="needs-validation row flex-column g-3" novalidate>
         <div>
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
@@ -10,7 +13,7 @@
                 Veuillez entrer une adresse courriel valide.
             </div>
         </div>
-    
+
         <!--
         (?=.*[A-Z]) : Au moins une lettre majuscule.
         (?=.*[a-z]) : Au moins une lettre minuscule.
@@ -32,7 +35,7 @@
                 </ul>
             </div>
         </div>
-    
+
         <div>
             <label for="validationMotDePasse" class="form-label">Validation du mot de passe</label>
             <input type="password" class="form-control" id="validationMotDePasse" name="validationMotDePasse" placeholder="Validation mot de passe" required>
@@ -40,12 +43,14 @@
                 Doit être identique au mot de passe
             </div>
         </div>
-    
+
         <div>
             <button class="btn btn-primary" type="submit">Soumettre</button>
         </div>
     </form>
 </div>
+
+<script src="js/formulaire.js"></script>
 
 <?php $contenu = ob_get_clean(); ?>
 <?php require 'vue/gabarit.php'; ?>
