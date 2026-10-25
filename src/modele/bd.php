@@ -4,7 +4,7 @@ class BD
     /** Hôte sur lequel le serveur de base de données se situe. */
     private const HOST = 'db';
     /** Nom de la base de données. */
-    private const DB_NAME = 'exemple_ajax_bd';
+    private const DB_NAME = 'exercice_ajax_bd';
     /**
      * Le jeu de caractères.
      * https://www.php.net/manual/fr/mysqlinfo.concepts.charset.php

@@ -17,8 +17,8 @@ function afficherPageAccueil()
 
 function retournerMessageErreurAJAX(array $erreurs)
 {
+    http_response_code(400);
     $erreursHTML = implode("<br>", $erreurs);
     echo $erreursHTML;
-    http_response_code(400);
     exit;
 }

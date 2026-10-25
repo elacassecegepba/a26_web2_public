@@ -20,6 +20,35 @@
                         Accueil
                     </a>
                 </li>
+                <?php if (estConnecte()) { ?>
+                <li class="nav-item">
+                    <a
+                        class="nav-link <?php NavClass("afficherPageFormulaire"); ?>"
+                        href="index.php?action=afficherPageFormulaire">
+                        Formulaire
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link <?php NavClass("afficherPageFormulaireAjax"); ?>"
+                        href="index.php?action=afficherPageFormulaireAjax">
+                        Formulaire AJAX
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link <?php NavClass("afficherPageRechercheFilms"); ?>"
+                        href="index.php?action=afficherPageRechercheFilms">
+                        Recherche films
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link <?php NavClass("afficherPageRechercheFilmsAjax"); ?>"
+                        href="index.php?action=afficherPageRechercheFilmsAjax">
+                        Recherche films AJAX
+                    </a>
+                <?php } ?>
             </ul>
             <!-- Boutons de navigation à droite -->
             <ul class="navbar-nav">
