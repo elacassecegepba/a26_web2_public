@@ -9,5 +9,7 @@
     <div id="reponse"></div>
 </div>
 
+<script src="js/rechercheFilmsAjax.js"></script>
+
 <?php $contenu = ob_get_clean(); ?>
 <?php require 'vue/gabarit.php'; ?>

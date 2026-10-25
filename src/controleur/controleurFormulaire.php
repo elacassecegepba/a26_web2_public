@@ -46,6 +46,19 @@ function afficherPageFormulaireAjax()
 
 function gererSoumissionFormulaireAjax()
 {
-    http_response_code(501); // Not Implemented
-    echo "Pas encore implémenté.";
+    $erreurs = validerDonneesFormulaire();
+    if (!empty($erreurs)) {
+        retournerMessageErreurAJAX($erreurs);
+    }
+
+    // Simuler une erreur si demandé
+    if (isset($_POST['erreur'])) {
+        retournerMessageErreurAJAX(["Retour d'une erreur tel que demandé."]);
+    }
+
+    // Simuler un délai de traitement
+    usleep($_POST['delai'] * 1000);
+
+    // Si tout est correct, afficher la page de validation après le délai
+    require 'vue/validationSoumissionFormulaireAjax.php';
 }

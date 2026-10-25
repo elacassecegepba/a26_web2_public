@@ -38,6 +38,14 @@ function rechercherFilms()
 
 function rechercherFilmsAjax()
 {
-    http_response_code(501); // Not Implemented
-    echo "Pas encore implémenté.";
+    $erreurs = validerDonneesRechercherFilms();
+    if (!empty($erreurs)) {
+        retournerMessageErreurAJAX($erreurs);
+    }
+
+    // Appelle le modèle pour obtenir les films correspondants
+    $requeteFilms = ModeleFilms::obtenirFilms(trim($_POST['titre']));
+
+    // Affiche les résultats
+    require 'vue/resultatRechercheFilmsAjax.php';
 }

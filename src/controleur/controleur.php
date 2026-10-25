@@ -1,5 +1,4 @@
 <?php
-
 function bloquerSiNonConnecte()
 {
     // Vérifier si l'utilisateur est connecté

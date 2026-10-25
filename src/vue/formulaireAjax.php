@@ -2,6 +2,7 @@
 <?php ob_start(); ?>
 
 <div class="col-sm-10 col-md-8 col-lg-6 mx-auto">
+    <div id="reponse"></div>
     <form id="formulaireAjax" class="needs-validation" novalidate>
         <div class="mb-2">
             <label for="donnees">Données à envoyer :</label>
@@ -58,6 +59,8 @@
         </div>
     </div>
 </div>
+
+<script src="js/formulaireAjax.js"></script>
 
 <?php $contenu = ob_get_clean(); ?>
 <?php require 'vue/gabarit.php'; ?>
