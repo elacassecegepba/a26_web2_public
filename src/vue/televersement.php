@@ -12,10 +12,10 @@
     }
     ?>
 
-    <form method="post" action="index.php?action=televerserFichier" class="needs-validation" novalidate>
+    <form enctype="multipart/form-data" method="post" action="index.php?action=televerserFichier" class="needs-validation" novalidate>
         <div class="mb-3 mt-3">
             <label for="fichier" class="form-label">Fichier&nbsp;:</label>
-            <input class="form-control" id="fichier" name="fichier" required>
+            <input type="file" class="form-control" id="fichier" name="fichier" required accept=".png, .jpg, .gif, .webp">
             <div class="invalid-feedback">
                 Veuillez sélectionner un fichier à téléverser (types autorisés : .png, .jpg, .gif, .webp).
             </div>

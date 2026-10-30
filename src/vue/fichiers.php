@@ -24,11 +24,13 @@ assert($requeteFichiers instanceof \PDOStatement || $requeteFichiers === false, 
                 <td><?php echo htmlspecialchars($fichier['nom_original']); ?></td>
                 <td>
                     <img
+                        src="index.php?action=telechargerFichier&id=<?php echo $fichier['id']; ?>"
                         alt="<?php echo htmlspecialchars($fichier['nom_original']); ?>"
                         class="img-thumbnail" style="max-width: 100px;">
                 </td>
                 <td>
                     <a
+                        href="index.php?action=telechargerFichier&id=<?php echo $fichier['id']; ?>"
                         class="btn btn-primary">
                         Télécharger
                     </a>
