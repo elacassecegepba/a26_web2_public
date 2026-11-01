@@ -1,0 +1,3 @@
+# Ignore tous les fichiers sauf le fichier .gitignore lui-même.
+*
+!.gitignore
