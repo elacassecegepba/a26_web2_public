@@ -15,6 +15,54 @@ function validerExempleRegexEnJS(valeur) {
     return [];
 }
 
+function validerTelephoneEnJS(valeur) {
+    const regexTelephone = /^\(\d{3}\)\s?\d{3}-\d{4}$/;
+
+    if (!regexTelephone.test(valeur)) {
+        return [
+            "Le champ 'Téléphone' ne correspond pas au format requis : (111) 111-1111."
+        ];
+    }
+
+    return [];
+}
+
+function validerEmailEnJS(valeur) {
+    const regexEmail = /^[a-zA-Z0-9\-_\.]{2,}@[a-zA-Z0-9\-\.]{2,}\.[a-zA-Z]{2,6}$/;
+
+    if (!regexEmail.test(valeur)) {
+        return [
+            "Le champ 'Courriel' ne correspond pas au format requis."
+        ];
+    }
+
+    return [];
+}
+
+function validerMessageEnJS(valeur) {
+    const regexMessage = /^(Bonjour|Madame|Monsieur),.*web.*(Meilleures salutations|Respectueusement|Bonne journée), Bob$/;
+
+    if (!regexMessage.test(valeur)) {
+        return [
+            "Le champ 'Message' ne correspond pas au format requis."
+        ];
+    }
+
+    return [];
+}
+
+function validerAdresseEnJS(valeur) {
+    const regexAdresse = /^\d+ .+, .+, [A-Za-z]{2} [A-Za-z]\d[A-Za-z][ ]?\d[A-Za-z]\d$/;
+
+    if (!regexAdresse.test(valeur)) {
+        return [
+            "Le champ 'Adresse' ne correspond pas au format requis : 116 rue, Saint-Georges, QC G5Y 3G1."
+        ];
+    }
+
+    return [];
+}
+
 async function gererSoumissionFormulaireRegex(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -32,7 +80,11 @@ async function gererSoumissionFormulaireRegex(event) {
     // Validation JavaScript
     if (!skipValidationJS) {
         const erreurs = [
-            ...validerExempleRegexEnJS(formulaire.exRegex.value)
+            ...validerExempleRegexEnJS(formulaire.exRegex.value),
+            ...validerTelephoneEnJS(formulaire.telephone.value),
+            ...validerEmailEnJS(formulaire.email.value),
+            ...validerMessageEnJS(formulaire.message.value),
+            ...validerAdresseEnJS(formulaire.adresse.value)
         ];
 
         if (erreurs.length > 0) {
