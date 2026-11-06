@@ -46,6 +46,12 @@ try {
         case 'prendreRendezVous':
             prendreRendezVous();
             break;
+        case 'telechargerImageRendezVous':
+            telechargerImageRendezVous();
+            break;
+        case 'obtenirModelesParMarque':
+            obtenirModelesParMarque();
+            break;
         default:
             throw new Exception('404 : Action non supportée');
     }

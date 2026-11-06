@@ -22,7 +22,7 @@ assert($requeteModeles instanceof \PDOStatement || $requeteModeles === false, 'L
     }
     ?>
 
-    <form method="post" action="index.php?action=prendreRendezVous" class="needs-validation" novalidate>
+    <form enctype="multipart/form-data" method="post" action="index.php?action=prendreRendezVous" class="needs-validation" novalidate>
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="marque" class="form-label">Marque</label>
@@ -40,9 +40,6 @@ assert($requeteModeles instanceof \PDOStatement || $requeteModeles === false, 'L
                 <label for="modele" class="form-label">Modèle</label>
                 <select name="modele" id="modele" class="form-select" required>
                     <option value="" disabled selected>Choisissez un modèle</option>
-                    <?php while ($modele = $requeteModeles->fetch()) { ?>
-                        <option value="<?php echo $modele['id']; ?>"><?php echo htmlspecialchars($modele['nom']); ?></option>
-                    <?php } ?>
                 </select>
                 <div class="invalid-feedback">
                     Veuillez entrer le modèle de votre voiture.
@@ -55,6 +52,14 @@ assert($requeteModeles instanceof \PDOStatement || $requeteModeles === false, 'L
             <textarea class="form-control" style="height: 9rem;" placeholder="Description" id="description" name="description" required maxlength="65535"></textarea>
             <div class="invalid-feedback">
                 Veuillez entrer une description pour le rendez-vous.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="images" class="form-label">Images du problème</label>
+            <input type="file" class="form-control" id="images" name="images[]" accept=".png, .jpg, .jpeg, .webp" multiple>
+            <div class="invalid-feedback">
+                Vous pouvez sélectionner une ou plusieurs images du problème.
             </div>
         </div>
 

@@ -48,6 +48,7 @@ if (isset($_SESSION['erreurs'])) {
                                 <?php foreach ($images as $id => $image) { ?>
                                     <div class="carousel-item <?php if ($id == 0) { echo 'active'; } ?>">
                                         <img
+                                            src="index.php?action=telechargerImageRendezVous&id=<?php echo htmlspecialchars($image['id']); ?>"
                                             alt="Image du problème <?php echo htmlspecialchars($image['id']); ?>"
                                             class="me-2 mb-2"
                                             style="max-width: 100px;">
