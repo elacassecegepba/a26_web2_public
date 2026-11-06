@@ -69,27 +69,24 @@
                     </a>
                 </li>
                 <?php if (estConnecte()) { ?>
-                    <!-- Bouton vers la page de téléversement -->
                     <li class="nav-item">
                         <a
-                            class="nav-link <?php NavClass("afficherPageTeleversement"); ?>"
-                            href="index.php?action=afficherPageTeleversement">
-                            Téléversement
+                            class="nav-link <?php NavClass("afficherPagePrendreRendezVous"); ?>"
+                            href="index.php?action=afficherPagePrendreRendezVous">
+                            Prendre un rendez-vous
                         </a>
                     </li>
-                    <!-- Bouton vers la page des fichiers -->
                     <li class="nav-item">
                         <a
-                            class="nav-link <?php NavClass("afficherPageFichiers"); ?>"
-                            href="index.php?action=afficherPageFichiers">
-                            Fichiers
+                            class="nav-link <?php NavClass("afficherPageMesRendezVous"); ?>"
+                            href="index.php?action=afficherPageMesRendezVous">
+                            Mes rendez-vous
                         </a>
                     </li>
                 <?php } ?>
             </ul>
             <!-- Boutons de navigation à droite -->
             <ul class="navbar-nav">
-
                 <?php if (!estConnecte()) { ?>
                     <!-- Bouton vers la page de connexion -->
                     <li class="nav-item">

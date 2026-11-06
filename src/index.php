@@ -2,7 +2,7 @@
 session_start();
 
 require_once 'controleur/controleur.php';
-require_once 'controleur/controleurFichiers.php';
+require_once 'controleur/controleurRendezVous.php';
 require_once 'controleur/controleurUtilisateurs.php';
 require_once 'controleur/controleurUtils.php';
 
@@ -37,17 +37,14 @@ try {
         case 'modifierProfil':
             modifierProfil();
             break;
-        case 'afficherPageTeleversement':
-            afficherPageTeleversement();
+        case 'afficherPageMesRendezVous':
+            afficherPageMesRendezVous();
             break;
-        case 'afficherPageFichiers':
-            afficherPageFichiers();
+        case 'afficherPagePrendreRendezVous':
+            afficherPagePrendreRendezVous();
             break;
-        case 'televerser':
-            televerser();
-            break;
-        case 'telecharger':
-            telecharger();
+        case 'prendreRendezVous':
+            prendreRendezVous();
             break;
         default:
             throw new Exception('404 : Action non supportée');
